@@ -1,0 +1,63 @@
+{
+  "name": "perm-analytics-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/perm-analytics-app",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/perm-analytics-app",
+        "outputPath": "dist/apps/perm-analytics-app"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/perm-analytics-app"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "perm-analytics-app:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "perm-analytics-app:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "perm-analytics-app:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nrwl/next:export",
+      "options": {
+        "buildTarget": "perm-analytics-app:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/perm-analytics-app"],
+      "options": {
+        "jestConfig": "apps/perm-analytics-app/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/perm-analytics-app/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": []
+}
